@@ -101,7 +101,7 @@ class MyList {
 };
 
 template<class T>
-void MyList<T>::destroy (int i) {
+void MyList<T>::destroy () {
   while (head != NULL) {
     Node *n = head;
 	head = head->next;
