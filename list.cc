@@ -78,6 +78,10 @@ class MyList {
 
   MyList(): head(NULL), num_nodes(0) {}
 
+  ~MyList() {
+    destroy();
+  }
+
  private:
   class Node {
    public:
@@ -85,12 +89,26 @@ class MyList {
 	Node *next;
   };
 
+  //the list is erased
+  //complexity O(n)
+  void destroy();
+  
   //number of nodes in the list
   int num_nodes;
 
   //head of the list
   Node *head;
 };
+
+template<class T>
+void MyList<T>::destroy (int i) {
+  while (head != NULL) {
+    Node *n = head;
+	head = head->next;
+	delete n;
+	num_nodes--;
+  }
+}
 
 template<class T>
 T MyList<T>::at (int i) {
