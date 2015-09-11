@@ -9,4 +9,8 @@ Data structures:
 * queue (queue.cc)
 * deque: double-ended queue (deque.cc)
 
-see "Algorithms in C++" as reference
+Other files:
+* script to execute all tests (run.sh)
+* documentation (README.md)
+
+For more information, see "Algorithms in C++" as reference
