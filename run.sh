@@ -1,6 +1,6 @@
 #! /bin/bash
 
-files=( "list" "double_list" )
+files=( "list" "double_list" "stack" )
 
 for file in "${files[@]}"
 do
