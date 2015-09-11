@@ -1,3 +1,9 @@
+//This file contains declaration and implementation of a generic list
+//lists works better than array to handle data whose number varies 
+//significantly (at any time the allocated memory is equal to the amount
+//of requried data and the maximum number of element is not strictly
+//bounded)
+
 #include <iostream>
 #include <assert.h>
 #include <set>
