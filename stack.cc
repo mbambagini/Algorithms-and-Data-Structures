@@ -77,12 +77,13 @@ int main () {
   stack.push(5);
   assert(stack.size()==3);
 
-  assert(stack.pop());
+  assert(stack.pop()==5);
   assert(stack.size()==2);
-  assert(stack.pop());
+  assert(stack.pop()==10);
   assert(stack.size()==1);
-  assert(stack.pop());
+  assert(stack.pop()==1);
   assert(stack.size()==0);
+  assert(stack.pop()==-1);
 
   return 0;
 }
