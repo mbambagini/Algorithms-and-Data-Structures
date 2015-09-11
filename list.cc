@@ -1,5 +1,5 @@
 //This file contains the declaration and implementation of a generic list
-//Lists works better than array to handle data whose number varies 
+//Lists work better than array to handle data whose number varies 
 //significantly (at any time the allocated memory is equal to the amount
 //of requried data and the maximum number of elements is not strictly
 //bounded)
