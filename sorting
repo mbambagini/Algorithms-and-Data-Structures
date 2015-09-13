@@ -1,3 +1,10 @@
+//
+//This file does not consider digital sorting algorithms (i.e.: radix sorting)
+//They split the key in a sequence of bytes (or group of bytes) and, starting
+//from the first one until the last sort the list according to it. In other
+//words, the array is sorted with respect to the first byte, than each group
+//is sorted independently according to the second byte and so on
+
 #include <iostream>
 #include <assert.h>
 
@@ -154,10 +161,45 @@ void merge_sort(T a[], int start, int stop) {
   merge(a, start, m, stop);
 }
 
+template<class T>
+void fixDown(T a[], int k, int N) {
+  //k-th node's sons are at position 2*k and 2*k+1
+  while((2*k) < N) {
+    int son = 2*k;
+    //pick son which highest priority
+    if (son < (N-1) && a[son] < a[son+1])
+      son++;
+    if (a[k] >= a[son])
+      break;
+    exchange(&a[k], &a[son]);
+    k = son;
+  }
+}
+
+//the heap sort algorithm modifies the actual array to become a heap
+//The prodedure requires less than 2N logN comparisons
+//The time complexity is O(NlogN) and the space complexity is O(1)
+//Creating a heap by scratch is more expensive in terms of space
+//complexity
+//Like the mergesort, the heap sort is not stable
+template<class T>
+void heap_sort(T a[], int N) {
+  int k = 0;
+  //build the heap
+  for (k = N/2 - 1; k >= 0; k--)
+    fixDown(a, k, N);
+  //sort the array from smallest to highest by retreiving the max
+  while(N > 1) {
+    exchange(&a[0], &a[N-1]);
+    N--;
+    fixDown(a, 0, N);
+  }
+}
+
 #define ARRAY_SIZE 20
 
 int main () {
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 7; i++) {
     int ar[ARRAY_SIZE] = {3, 20, 1, 19, 8, 5, 13, 10, 18, 7, 12, 9, 14, 4, 2,
                           15, 6, 17, 11, 16};
     switch(i) {
@@ -178,6 +220,9 @@ int main () {
         break;
       case 5:
         merge_sort(ar, 0, ARRAY_SIZE-1);
+        break;
+      case 6:
+        heap_sort(ar, ARRAY_SIZE);
         break;
       default:
         break;
