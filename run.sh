@@ -1,6 +1,6 @@
 #! /bin/bash
 
-files=( "list" "double_list" "stack" "queue" "deque" "sorting")
+files=( "list" "double_list" "stack" "queue" "deque" "heap" "sorting")
 
 for file in "${files[@]}"
 do
