@@ -9,6 +9,9 @@ Data structures:
 * queue (queue.cc)
 * deque: double-ended queue (deque.cc)
 
+Algorithms:
+* sorting (sorting.cc): selection sort, insertion sort, shell sort, bubble sort, quick sort and merge sort
+
 Other files:
 * script to execute all tests (run.sh)
 * documentation (README.md)
