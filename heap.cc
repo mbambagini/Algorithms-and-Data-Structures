@@ -25,38 +25,32 @@
 
 using namespace std;
 
-template<class T>
-class Heap;
-
 
 template <class T>
 class Heap {
  public:
 
+  //insert a new element in the heap
   bool insert(T val);
 
+  //remove and return the element with highest priority
   T getMax ();
 
+  //return if there is no more space
   int isFull() {
     return (num_nodes >= max_num_nodes);
   }
 
+  //construct the heap with maximum n nodes
   Heap (int n) {
     max_num_nodes = n;
     a = new T[max_num_nodes];
     num_nodes = 0;
   }
 
-
   virtual ~Heap() {
     if (a != NULL)
       delete[] a;
-  }
-
-  void print() {
-    for (int i=0; i<num_nodes; i++)
-      cout<<a[i]<<" ";
-    cout<<endl;
   }
 
  private:
@@ -85,11 +79,10 @@ class Heap {
   }
 };
 
-
 template<class T>
 void Heap<T>::fixUp (int k) {
   //k/2 is the index of the father of k-th node
-  while (k > 0 && a[k/2] < a[k]) {
+  while (k >= 0 && a[k/2] < a[k]) {
     exchange(k, k/2);
     k = k/2;
   }
