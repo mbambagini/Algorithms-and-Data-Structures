@@ -8,9 +8,10 @@ Data structures:
 * stack (stack.cc)
 * queue (queue.cc)
 * deque: double-ended queue (deque.cc)
+* heap (heap.cc)
 
 Algorithms:
-* sorting (sorting.cc): selection sort, insertion sort, shell sort, bubble sort, quick sort and merge sort
+* sorting (sorting.cc): selection sort, insertion sort, shell sort, bubble sort, quick sort, merge sort and heap sort
 
 Other files:
 * script to execute all tests (run.sh)
