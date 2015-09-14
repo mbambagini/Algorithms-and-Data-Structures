@@ -1,6 +1,6 @@
 #! /bin/bash
 
-files=( "list" "double_list" "stack" "queue" "deque" "heap" "tree" "sorting")
+files=( "list" "double_list" "stack" "queue" "deque" "heap" "tree" "sorting" "graph_matrix.cc")
 
 for file in "${files[@]}"
 do
