@@ -10,7 +10,9 @@ Data structures:
 * deque: double-ended queue (deque.cc)
 * heap (heap.cc)
 * tree (tree.cc)
-* graph based on adjacency matrix (graph_matrix.cc)
+* graph
+  * based on adjacency matrix (graph_matrix.cc)
+  * based on adjacency list (graph_list.cc)
 
 Algorithms:
 * sorting (sorting.cc): selection sort, insertion sort, shell sort, bubble sort, quick sort, merge sort and heap sort
