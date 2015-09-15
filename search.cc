@@ -1,11 +1,40 @@
-//search algorithms look for a key among many records
-//functions to be implemented: search, insert, remove, select, show
-//implemented algorithms: indexed-key search, sequantial search, binary search and binary search tree
+//Search algorithms look for a key among many records
+//Functions to be implemented: search, insert, remove, select, show
+//Implemented algorithms: indexed-key search, sequantial search, binary search
+//and binary search tree
+//
+//Performance
+//
+//              worst-case  worst-case  worst-case  average-case  average-case
+//              insert      search      selection   insert        search
+//
+// indexed-key
+// array        O(1)        O(1)        O(M)        1             1
+//
+// sorted
+// array        O(N)        O(N)        1           N/2           N/2
+//
+// sorted
+// list         O(N)        O(N)        O(N)        N/2           N/2
+//
+// unsorted
+// list         O(1)        O(N)        O(NlogN)    1             N/2
+//
+// binary
+// search       O(N)        O(logN)     1           N/2           logN
+//
+// binary
+// search tree  O(N)        O(N)        O(N)        logN          logN
+//
+// red-black
+// tree         O(logN)     O(logN)     O(logN)     logN          logN
+
 
 #include <iostream>
 #include <sstream>
 #include <assert.h>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -47,48 +76,26 @@ class IndexedKeySearch : public GenericSearch<int, V> {
     delete[] buffer;
   }
 
-  //complexity O(1)
   int count () {
     return num_actual_elements;
   }
 
-  //complexity O(1)
-  V search (int key) {
-    if (key < num_max_elements)
-      return buffer[key];
+  V search (int key);
+
+  void insert (int key, V value);
+
+  void remove (int key);
+
+  V select (int i) {
+    if (i >= num_actual_elements)
+      return -1;
+    for (int j = 0, k = -1; j < num_max_elements && k != i; j++)
+      if (buffer[j] != -1 && (++k == i))
+        return buffer[j];
     return -1;
   }
 
-  //complexity O(1)
-  void insert (int key, V value) {
-    if (key < num_max_elements) {
-       if (buffer[key] == -1)
-         num_actual_elements++;
-       buffer[key] = value;
-    }
-  }
-
-  //complexity O(1)
-  void remove (int key) {
-    if (key < num_max_elements) {
-      if (buffer[key] != -1)
-        num_actual_elements--;
-      buffer[key] = -1;
-    }
-  }
-
-  //complexity O(1)
-  V select (int i) {
-    return search(i);
-  }
-
-  void print(string &s) {
-    stringstream ss;
-    for (int i = 0; i < num_max_elements; i++)
-	  if (buffer[i] != -1)
-	    ss<<"("<<i<<", "<<buffer[i]<<") ";
-	s = ss.str();
-  }
+  void print(string &s);
   
  private:
   //it states the maximum number of storable items
@@ -110,6 +117,40 @@ IndexedKeySearch<V>::IndexedKeySearch (int n) {
     buffer[i] = -1;
 }
 
+template<class V>
+V IndexedKeySearch<V>::search (int key) {
+  if (key < num_max_elements)
+    return buffer[key];
+  return -1;
+}
+
+template<class V>
+void IndexedKeySearch<V>::insert (int key, V value) {
+  if (key < num_max_elements) {
+     if (buffer[key] == -1)
+       num_actual_elements++;
+     buffer[key] = value;
+  }
+}
+
+template<class V>
+void IndexedKeySearch<V>::remove (int key) {
+  if (key < num_max_elements) {
+    if (buffer[key] != -1)
+      num_actual_elements--;
+    buffer[key] = -1;
+  }
+}
+
+template<class V>
+void IndexedKeySearch<V>::print(string &s) {
+  stringstream ss;
+  for (int i = 0; i < num_max_elements; i++)
+    if (buffer[i] != -1)
+      ss<<"("<<i<<", "<<buffer[i]<<") ";
+  s = ss.str();
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 //this algorithm search the element sequentially in an array
@@ -122,31 +163,21 @@ class SequentialSearch : public GenericSearch<K, V> {
     delete[] buffer;
   }
 
-  //complexity O(1)
   int count () {
     return num_actual_elements;
   }
 
-  //complexity O(N)
   V search (int key);
 
-  //complexity O(N)
   void insert (K key, V value);
 
-  //complexity O(N)
   void remove (K key);
 
-  //complexity O(1)
   V select (int i) {
     return buffer[i].value;
   }
 
-  void print(string &s) {
-    stringstream ss;
-    for (int i = 0; i < num_actual_elements; i++)
-      ss<<"("<<buffer[i].key<<", "<<buffer[i].value<<") ";
-	s = ss.str();
-  }
+  void print(string &s);
 
  protected:
   //key-value pair
@@ -165,6 +196,14 @@ class SequentialSearch : public GenericSearch<K, V> {
   //actual number of stored elements
   int num_actual_elements;
 };
+
+template<class K, class V>
+void SequentialSearch<K, V>::print(string &s) {
+  stringstream ss;
+  for (int i = 0; i < num_actual_elements; i++)
+    ss<<"("<<buffer[i].key<<", "<<buffer[i].value<<") ";
+  s = ss.str();
+}
 
 template<class K, class V>
 SequentialSearch<K, V>::SequentialSearch (int n) {
@@ -216,7 +255,6 @@ class BinarySearch : public SequentialSearch<K, V> {
  public:
   BinarySearch(int n) : SequentialSearch<K, V>(n) { }
 
-  //complexity O(logN)
   V search (K key) {
     return search(key, 0, SequentialSearch<K, V>::num_actual_elements-1);
   }
@@ -240,14 +278,10 @@ V BinarySearch<K, V>::search (K key, int start, int stop) {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-//in media O(logN), nel caso peggiore O(N)
-//per bilanciare:
-//- metodi randomizzati: introducono valori random per allontanarsi dal caso
-//  peggiore (BST randomizzati e skip list)
-//- metodi ammortizzati: poche modifiche (splay BST)
-//. metodi ottimizzati: forniscono garanzie (2-3-4 top-down e red-black)
-//each node has a key higher than keys in the left sub-tree and lower than ones
-//in the right sub-tree
+//The main problem of BSTs is that when they are not balanced the access time
+//is linear rather than logarithmic
+//Property of a BST: each node has a key higher than keys in the left sub-tree
+//and lower than ones in the right sub-tree
 template<class K, class V>
 class BinarySearchTree : public GenericSearch<K, V> {
  public:
@@ -270,7 +304,6 @@ class BinarySearchTree : public GenericSearch<K, V> {
     return search(key, head);
   }
 
-  //complexity O(logN);
   void insert (K key, V value) {
     if (head == NULL) {
       head = new BSTNode(key, value);
@@ -286,30 +319,12 @@ class BinarySearchTree : public GenericSearch<K, V> {
 
   void remove (K key) {
     if (head == NULL)
-	  return;
-	remove(key, head);
+      return;
+    remove(key, head);
   }
 
-  //complexity O(1)
-  V select (int i) {
-    //int j = i;
-    //return select(j, head);
-	return -1;
-  }
-/*  V select (int &i, BSTNode* ptr) {
-    if (ptr == 0)
-      return -1;
-    V val = select(i, ptr->left);
-    if (val != -1)
-      return val;
-    i--;
-    if (i == 0)
-      return ptr->item.value;
-    val = select(i, ptr->left);
-    if (val != -1)
-      return val;
-  }
-*/
+  V select (int i);
+
  private:
 
   class Item {
@@ -337,16 +352,36 @@ class BinarySearchTree : public GenericSearch<K, V> {
   V search (K key, BSTNode* ptr);
 
   void remove (K key, BSTNode*& ptr);
-  
+
   void removeMin (BSTNode* &ptr, Item &item);
 
-  //
+  //BST root
   BSTNode *head;
 
   //it states the actual number of nodes in the BST
   int num_actual_elements;
 
 };
+
+template<class K, class V>
+V BinarySearchTree<K, V>::select (int i) {
+  if (head == NULL)
+    return -1;
+  stack<BSTNode*> st;
+  BSTNode* n;
+  st.push(head);
+  while (!st.empty()) {
+    n = st.top();
+    st.pop();
+    if (i-- == 0)
+      return n->item.value;
+    if (n->right != NULL)
+      st.push(n->right);
+    if (n->left != NULL)
+      st.push(n->left);
+  }
+  return -1;
+}
 
 template<class K, class V>
 void BinarySearchTree<K, V>::print (string &s, BSTNode* ptr) {
@@ -455,6 +490,7 @@ void execute (GenericSearch<int, int>* t) {
   t->insert(3, 5);
   t->print(s);
   assert(s.compare("(0, 3) (1, 2) (2, 1) (3, 5) (4, 8) (7, 7) ")==0);
+  assert(t->select(5)==7);
   assert(t->count()==6);
   assert(t->search(0)==3);
   assert(t->search(1)==2);
@@ -466,7 +502,8 @@ void execute (GenericSearch<int, int>* t) {
   t->remove(4);
   s = "";
   t->print(s);
- assert(s.compare("(0, 3) (1, 2) (2, 1) (3, 5) (7, 7) ")==0);
+  assert(s.compare("(0, 3) (1, 2) (2, 1) (3, 5) (7, 7) ")==0);
+
   assert(t->count()==5);
 }
 
