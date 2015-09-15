@@ -16,6 +16,7 @@ Data structures:
 
 Algorithms:
 * sorting (sorting.cc): selection sort, insertion sort, shell sort, bubble sort, quick sort, merge sort and heap sort
+* searching (search.cc): indexed-key search, sequential search, binary search and binary search tree (BST)
 
 Other files:
 * script to execute all tests (run.sh)
