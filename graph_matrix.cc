@@ -13,7 +13,7 @@ template<class T>
 class Graph {
  public:
   //n is the maximum number of vertexes
-  Graph (int n);
+  Graph (int n = 10);
 
   //add a vertex
   bool addNode (const T &a);
@@ -52,7 +52,7 @@ class Graph {
 };
 
 template<class T>
-Graph<T>::Graph(int n = 10): num_nodes(n) {
+Graph<T>::Graph(int n): num_nodes(n) {
   num_actual_nodes = 0;
   vertexes = new T[n];
   edges = new int*[n];
