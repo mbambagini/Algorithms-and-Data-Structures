@@ -1,4 +1,9 @@
 //this file contains the implementation of a graph which uses adjacency lists
+//pros:
+//- lower memory than adjacency matrixes with spare graphs (#V+#E)
+//- getting the list of adjacent nodes takes O(1)
+//cons:
+//- implementation and performance of edge/vertex removal/manipolation are slower
 
 #include <iostream>
 #include <assert.h>
