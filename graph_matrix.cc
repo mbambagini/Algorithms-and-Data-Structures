@@ -1,4 +1,11 @@
 //this file provides an implementation of a graph based on adjacency matrixs
+//pros:
+//- easy to implement
+//- adding an edge takes O(1)
+//cons:
+//- high memory occupation: V^2. Not convinient with sparse graphs
+//- retreiving the adjacent nodes takes O(V)
+//- adding a vertex may require to reallocate the entire matrix
 
 #include <iostream>
 #include <assert.h>
