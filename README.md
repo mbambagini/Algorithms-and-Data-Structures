@@ -10,6 +10,7 @@ Data structures:
 * deque: double-ended queue (deque.cc)
 * heap (heap.cc)
 * tree (tree.cc)
+* trie (trie.cc)
 * hash (hash.cc)
 * graph
   * based on adjacency matrix (graph_matrix.cc)
