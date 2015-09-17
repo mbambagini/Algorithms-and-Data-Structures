@@ -1,3 +1,10 @@
+//properties:
+//- a binary tree with N internal nodes has N+1 external nodes
+//- a binary tree with n internal nodes has 2N links: N-1 internal and N+1 external
+//- the node level is its father's level plus 1. The root has level 0
+//- the height of a binary tree is the greater than or equal to logN and smaller
+//  than N-1
+
 #include <iostream>
 #include <assert.h>
 #include <queue>
