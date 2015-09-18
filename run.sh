@@ -1,6 +1,12 @@
 #! /bin/bash
 
-files=( "list" "double_list" "stack" "queue" "deque" "heap" "tree" "trie" "hash" "sorting" "graph_matrix" "graph_list" "search")
+files=( "list" "double_list" "stack" "queue" "deque" "heap" "tree" "trie"
+        "hash" "graph_matrix" "graph_list"
+        "sorting" "search"
+        "examples/ex_17_1" "examples/ex_17_2" "examples/ex_17_3"
+        "examples/ex_17_4" "examples/ex_17_5" "examples/ex_17_6"
+        "examples/ex_17_7"
+        "examples/ex_18_1" )
 
 for file in "${files[@]}"
 do
@@ -13,3 +19,4 @@ do
     echo "SUCCESS!"
   fi
 done
+
