@@ -21,6 +21,7 @@ Algorithms:
 * searching (search.cc): indexed-key search, sequential search, binary search and binary search tree (BST)
 
 Other files:
+* examples: solutions of several additional problems of "Cracking the Coding Interview" (5th Edition)
 * script to execute all tests (run.sh)
 * documentation (README.md)
 
