@@ -3,5 +3,6 @@
 examples/*.o
 
 # tmp files
+*.cc~
 output.tmp
 
