@@ -1,0 +1,7 @@
+# compiled files
+*.o
+examples/*.o
+
+# tmp files
+output.tmp
+
