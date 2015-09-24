@@ -22,6 +22,7 @@ Algorithms:
 
 Other files:
 * examples: solutions of several additional problems of "Cracking the Coding Interview" (5th Edition)
+* others: other exercises found on Google
 * script to execute all tests (run.sh)
 * documentation (README.md)
 
