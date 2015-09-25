@@ -118,6 +118,8 @@ int Graph<T>::shortestPath(const T& start_node, const T& dst_node, string &s) {
   id_stop = fromValueToId(dst_node);
   if (id_stop == -1 || id_start == -1)
     return -1;
+  if (id_start == id_stop)
+    return 0;
 
   for (int i = 0; i < num_actual_nodes; i++)
     q.insert(i);
@@ -128,29 +130,31 @@ int Graph<T>::shortestPath(const T& start_node, const T& dst_node, string &s) {
     //find the node with lowest potential and remove it from the queue
     int id = -1;
     for (int i = 0; i < num_actual_nodes; i++)
-	  if (q.count(i) != 0 && potential[i] != -1 && potential[id] > potential[i])
-	    id = i;
-    if (id == -1 || potential[id] == -1)
-	  return -1;
-	q.erase(id);
+      if (q.count(i) != 0 && potential[i] != -1 &&
+          (id == -1 || potential[id] > potential[i]))
+        id = i;
 
-	//check if its neighbours can be reached through it with a lower cost
+    if (id == -1 || potential[id] == -1)
+      return -1;
+    q.erase(id);
+
+    //check if its neighbours can be reached through it with a lower cost
     for (typename list<Edge>::iterator it = vertexes[id].links.begin();
-	     it != vertexes[id].links.end();
-		 it++) {
-	  int d = potential[id] + it->cost;
-	  if (potential[it->id_node] == -1 || potential[it->id_node] > d) {
-	    potential[it->id_node] = d;
-		predecessor[it->id_node] = id;
-	  }
-	}
+         it != vertexes[id].links.end();
+         it++) {
+      int d = potential[id] + it->cost;
+      if (potential[it->id_node] == -1 || potential[it->id_node] > d) {
+        potential[it->id_node] = d;
+        predecessor[it->id_node] = id;
+      }
+    }
   }
 
   //prepare the output string with the path
   int id = id_stop;
   while (id != id_start) {
     ss<<fromIdToValue(id)<<" <- ";
-	id = predecessor[id];
+    id = predecessor[id];
   }
   ss<<fromIdToValue(id_start);
   s = ss.str();
