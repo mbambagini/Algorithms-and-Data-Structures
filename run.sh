@@ -9,7 +9,7 @@ files=( "list" "double_list" "stack" "queue" "deque" "heap" "tree" "trie"
 	"examples/ex_17_12" "examples/ex_17_13"
         "examples/ex_18_1" "examples/ex_18_2" "examples/ex_18_4" 
         "examples/ex_18_10" "examples/ex_18_11" "examples/ex_18_12"
-        "others/visitor")
+        "others/visitor" "others/board")
 
 for file in "${files[@]}"
 do
