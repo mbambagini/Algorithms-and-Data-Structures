@@ -1,8 +1,13 @@
 # compiled files
 *.o
 examples/*.o
+others/*.o
 
 # tmp files
 *.cc~
 output.tmp
 
+#travis CI
+makefile
+configure
+.travis.yml
