@@ -1,5 +1,3 @@
-CC		= g++
-
 SRC_FILES := $(shell ls *.cc; ls examples/*.cc; ls others/*.cc)
 OBJ_FILES := $(SRC_FILES:%.cc=%.o)
 
@@ -10,7 +8,7 @@ all: compile
 compile: $(OBJ_FILES)
 
 %.o : %.cc
-	@$(CC) $< -o $@
+	@$(CXX) $< -o $@
 
 ### TEST ###
 
@@ -23,3 +21,4 @@ clean:
 	@rm -f *.o
 	@rm -f examples/*.o
 	@rm -f others/*.o
+
